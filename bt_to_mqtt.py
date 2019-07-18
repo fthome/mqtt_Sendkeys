@@ -20,7 +20,7 @@ class BtToMqtt:
         self.mqtt_client.publish(self.topic, payload = self.payload)
 
     def run(self):
-        while true:
+        while True:
             time.sleep(0.1)
 
 if __name__ == "__main__":
