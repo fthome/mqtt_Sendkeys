@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 import RPi.GPIO as GPIO
+import time
 
 
 class BtToMqtt:
@@ -14,10 +15,12 @@ class BtToMqtt:
         self.topic = topic
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(gpio_pin,GPIO.IN)
-        GPIO.add_event_detect(gpio_pin, GPIO.FALLING, callback=self.on_action, bouncetime= 500)
+        GPIO.add_event_detect(gpio_pin, GPIO.FALLING, callback=self.on_action, bouncetime= 100)
 
-    def on_action(self):
+    def on_action(self, channel):
+        print("Bt %s pressed"%channel)
         self.mqtt_client.publish(self.topic, payload = self.payload)
+        print("%s => %s"%(self.topic, self.payload))
 
     def run(self):
         while True:
