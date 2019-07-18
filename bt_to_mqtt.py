@@ -9,7 +9,7 @@ class BtToMqtt:
     def __init__(self, gpio_pin, topic, payload, mqtt_host = "localhost", mqtt_port = 1883):
         self.mqtt_client = mqtt.Client("gpio_sender")
         self.mqtt_client.connect(mqtt_host, mqtt_port)#, keepalive = 60)
-        self.gpio_pin ) gpio_pin
+        self.gpio_pin = gpio_pin
         self.payload = payload
         self.topic = topic
         GPIO.setmode(GPIO.BCM)

@@ -1,0 +1,15 @@
+[Unit]
+Description= Push BT to MqttSendKeys
+After=syslog.target network.target # quand les autres services sont ACTIFS
+Documentation=man:cron(8)  # pour man.service
+
+[Service]
+TimeoutStartSec=0
+ExecStart=/usr/bin/python3 /home/pi/mqtt_Senkeys/bt_to_mqtt.py
+Type = simple
+RemainAfterExit = no
+User = root
+Killmode = process
+
+[Install]
+WantedBy=multi-user.target
