@@ -2,6 +2,7 @@ import win32com.client
 import time
 import paho.mqtt.client as mqtt
 
+
 class MqttSendKeys:
     '''Une application qui attend des ordres issu de messages mqtt
     pour les envoyer vers une application windows
@@ -34,11 +35,9 @@ class MqttSendKeys:
     def on_message(self, client, userdata, message):
         print("message received " ,str(message.payload.decode("utf-8")))
         print("message topic=",message.topic)
-        if self.shell.AppActivate(self.application_name):
-            print("Send : %s send to %s"%(message.payload, self.application_name))
-            self.shell.SendKeys(message.payload.decode("utf-8"),1)
-        else:
-            print("Oups, application not active!")
+        self.shell.AppActivate(self.application_name)
+        print("Send : %s send to %s"%(message.payload, self.application_name))
+        self.shell.SendKeys(message.payload.decode("utf-8"),1)
 
 
 if __name__ == "__main__":
